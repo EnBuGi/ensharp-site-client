@@ -74,7 +74,7 @@ const FAQ: React.FC = () => {
         <section id="faq" className="w-full px-4 py-32 bg-background relative border-t border-border">
             <div className="max-w-3xl mx-auto">
                 <div className="text-center mb-16">
-                    <Text variant="h2" className="text-3xl md:text-4xl font-bold text-white mb-4">Frequently Asked Questions</Text>
+                    <Text variant="h1" className="mb-2">FAQ</Text>
                     <Text className="text-zinc-400">자주 묻는 질문들을 모았습니다.</Text>
                 </div>
 

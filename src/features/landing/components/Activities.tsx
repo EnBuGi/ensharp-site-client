@@ -26,7 +26,7 @@ const activities: Activity[] = [
     {
         id: 'study',
         title: 'Coding Study',
-        description: 'Java 개발 스터디를 매주 진행합니다. 선배 기수의 정기적인 코드 리뷰와 피드백을 통해 기초를 탄탄히 다집니다.',
+        description: 'Java 및 웹 스터디를 매주 진행합니다. 선배 기수의 정기적인 코드 리뷰와 피드백을 통해 기초를 탄탄히 다집니다.',
         icon: 'school',
         iconColor: 'text-primary',
         gridClass: 'col-span-1 md:col-span-2 md:row-span-2',
@@ -176,7 +176,7 @@ const Activities: React.FC = () => {
             `}</style>
             <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center">
                 <div className="mb-8 flex flex-col items-center text-center">
-                    <Text variant="h2" className="text-3xl font-bold text-white mb-2">Our Activities</Text>
+                    <Text variant="h1" className=" font-bold text-white mb-2">Our Activities</Text>
                     <Text className="text-muted mb-8">En#의 4가지 주요 활동을 소개합니다.</Text>
 
                     {/* Category Navigation */}

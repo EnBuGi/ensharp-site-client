@@ -131,8 +131,8 @@ const RecruitmentInfo: React.FC = () => {
         <section id="recruitment" ref={sectionRef} className="w-full px-4 py-32 bg-background border-t border-border">
             <div className="max-w-4xl w-full mx-auto">
                 <div className="text-center mb-10">
-                    <Text variant="display-xl" className="font-bold text-white mb-4">Join the Team</Text>
-                    <Text variant="body" className="text-zinc-500">열정 있는 예비 엔지니어의 지원을 기다립니다.</Text>
+                    <Text variant="h1" className="font-bold text-white mb-4">Join the En#</Text>
+                    <Text variant="body" className="text-zinc-500">열정 있는 예비 엔샵 가족의 지원을 기다립니다.</Text>
                 </div>
 
                 <div className="w-full rounded-xl bg-[#0C0C0E] border border-border shadow-2xl overflow-hidden min-h-[480px] flex flex-col">
@@ -196,8 +196,8 @@ const RecruitmentInfo: React.FC = () => {
                                     <span className="text-zinc-500">Initiating external link...</span>
                                 </p>
                                 <a href="https://forms.gle/RmzQknfjkrggFzGo9" target="_blank" rel="noopener noreferrer">
-                                    <Button size="lg" className="hover:scale-105 transition-transform" rightIcon={<span className="material-symbols-outlined text-sm">arrow_forward</span>}>
-                                        26기 지원서 작성하기
+                                    <Button size="lg" className="hover:scale-105 transition-transform" >
+                                        26기 지원하기
                                     </Button>
                                 </a>
                             </div>

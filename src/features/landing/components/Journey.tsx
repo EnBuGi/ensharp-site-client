@@ -125,12 +125,12 @@ const Journey: React.FC = () => {
                         <span className="h-px w-8 bg-primary"></span>
                         <Text variant="label" className="text-primary font-bold tracking-widest">En# 주요활동</Text>
                     </div>
-                    <Text variant="h1" className="text-4xl md:text-6xl font-bold text-white mb-2 leading-tight">
+                    <Text variant="h1" className=" md:text-6xl font-bold text-white mb-2 leading-tight">
                         From Learner<br />
                         <span className="text-zinc-600">to Mentor.</span>
                     </Text>
                     <Text variant="body" className="text-zinc-400 mt-4 text-sm md:text-base max-w-sm">
-                        스터디부터 멘토링까지, En#에서의 18개월.
+                        스터디부터 멘토링까지, En#에서의 1년 반
                     </Text>
                 </div>
 
