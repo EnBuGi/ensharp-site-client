@@ -18,6 +18,7 @@ export const Navbar: React.FC = () => {
         { label: 'About', href: '#hero' },
         { label: 'Activities', href: '#activities' },
         { label: 'Journey', href: '#journey' },
+        { label: 'FAQ', href: '#faq' },
         { label: 'Recruit', href: '#recruitment' },
     ];
 
@@ -43,7 +44,7 @@ export const Navbar: React.FC = () => {
                 </nav>
 
                 {/* CTA */}
-                <a href="#recruitment">
+                <a href="https://forms.gle/RmzQknfjkrggFzGo9" target="_blank" rel="noopener noreferrer">
                     <Button variant="secondary" size="sm" className="font-mono uppercase tracking-wider text-xs font-bold">
                         Apply 26th
                     </Button>
