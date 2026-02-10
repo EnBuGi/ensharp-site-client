@@ -19,8 +19,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "En# - Elite Coding Club",
-  description: "Sejong University Programming Club",
+  title: "En# - Sejong University Programming Club",
+  description: "세종대학교 프로그래밍 동아리",
 };
 
 export default function RootLayout({
