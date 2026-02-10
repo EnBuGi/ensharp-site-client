@@ -75,14 +75,14 @@ const Hero: React.FC = () => {
                 {/* Countdown Timer - Only show if not closed */}
                 {!isClosed && (
                     <div className="mb-12 animate-fade-in-up [animation-delay:600ms]">
-                        <Text variant="h2" className="text-3xl md:text-5xl font-mono font-bold text-white tabular-nums tracking-widest">
+                        <Text variant="h2" className="text-lg sm:text-3xl md:text-5xl font-mono font-bold text-white tabular-nums tracking-wider sm:tracking-widest">
                             D-{String(timeLeft.days).padStart(2, '0')} <span className="text-zinc-500 mx-1">:</span> {String(timeLeft.hours).padStart(2, '0')} <span className="text-zinc-500 mx-1">:</span> {String(timeLeft.minutes).padStart(2, '0')} <span className="text-zinc-500 mx-1">:</span> {String(timeLeft.seconds).padStart(2, '0')}
                         </Text>
                     </div>
                 )}
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href={isClosed ? undefined : "#recruitment"} className={`group ${isClosed ? 'pointer-events-none' : ''}`}>
+                    <a href={isClosed ? undefined : "https://forms.gle/RmzQknfjkrggFzGo9"} target="_blank" rel="noopener noreferrer" className={`group ${isClosed ? 'pointer-events-none' : ''}`}>
                         <Button
                             size="lg"
                             disabled={isClosed}

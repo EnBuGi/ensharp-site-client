@@ -7,7 +7,7 @@ import { Text } from '@/shared/components/ui/Text';
 import { cn } from '@/shared/utils/cn';
 
 // Types
-type LayoutType = 'inline' | 'overlay' | 'morph' | 'sidebar' | 'panorama';
+type LayoutType = 'inline' | 'overlay' | 'morph' | 'sidebar' | 'panorama' | 'swipe';
 
 interface Activity {
     id: string;
@@ -26,12 +26,12 @@ const activities: Activity[] = [
     {
         id: 'study',
         title: 'Coding Study',
-        description: 'C#, Java, JavaScript를 활용한 프로그래밍 설계 및 개발 스터디를 매주 진행합니다. 선배 기수의 정기적인 코드 리뷰와 피드백을 통해 기초를 탄탄히 다집니다.',
+        description: 'Java 개발 스터디를 매주 진행합니다. 선배 기수의 정기적인 코드 리뷰와 피드백을 통해 기초를 탄탄히 다집니다.',
         icon: 'school',
         iconColor: 'text-primary',
         gridClass: 'col-span-1 md:col-span-2 md:row-span-2',
         contentClass: 'p-8 flex flex-col justify-between h-full',
-        images: ['/study.jpg', 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=800&q=80', 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&q=80'],
+        images: ['/study/study1.jpg', '/study/study2.webp', '/study/study3.webp', '/study/study4.jpg', '/study/study5.jpg'],
         details: (
             <div className="mt-4 w-full p-4 rounded bg-zinc-950/50 border border-zinc-800 font-mono text-xs text-zinc-400">
                 <div className="flex gap-2 mb-2">
@@ -54,7 +54,7 @@ const activities: Activity[] = [
         iconColor: 'text-blue-500',
         gridClass: 'col-span-1 md:col-span-1 md:row-span-2',
         contentClass: 'p-6 flex flex-col h-full',
-        images: ['/channeltalk.jpg', 'https://images.unsplash.com/photo-1504384308090-c54be3855833?w=800&q=80', 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80'],
+        images: ['/hackerton/hackerton1.jpg', '/hackerton/hackerton2.jpg', '/hackerton/hackerton3.jpg', '/hackerton/hackerton4.jpg', '/hackerton/hackerton5.jpg', '/hackerton/channeltalk_presentation.jpg'],
         details: (
             <div className="space-y-2 mt-auto">
                 <div className="flex items-center justify-between text-xs font-mono text-zinc-400 bg-black/20 p-2 rounded border border-border">
@@ -71,425 +71,232 @@ const activities: Activity[] = [
     {
         id: 'events',
         title: 'Events',
-        description: '신입기수 환영회, En# Day, MT 등 선후배 간의 끈끈한 유대감을 위한 공식 행사.',
+        description: '신입기수 환영회, En# Day, MT 등 선후배 간의 끈끈한 유대감을 위한 행사입니다.',
         icon: 'celebration',
         iconColor: 'text-green-500',
         gridClass: 'col-span-1',
         contentClass: 'p-6 flex flex-col justify-center gap-2 h-full',
-        images: ['https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80', 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=800&q=80']
+        images: ['/events/event1.jpeg', '/events/event2.jpg', '/events/event3.webp', '/events/event4.jpg', '/events/event5.jpg', '/events/event6.jpg', '/events/event7.jpg', '/events/event8.jpg', '/events/event9.jpg']
     },
     {
         id: 'seminar',
         title: 'Seminar',
-        description: 'Git, React, AWS 등 선배 기수들이 전하는 실무 노하우와 기술 세미나.',
+        description: 'Git, React, AWS 등 선배 기수들이 전하는 실무 노하우와 기술 세미나입니다.',
         icon: 'mic',
         iconColor: 'text-purple-500',
         gridClass: 'col-span-1',
         contentClass: 'p-6 flex flex-col justify-center gap-2 h-full',
-        images: ['/seminar.jpg', 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=800&q=80']
-    },
-    {
-        id: 'mentoring',
-        title: 'Mentoring System',
-        description: '1년간의 활동 후에는 멘토가 되어 후배들을 이끌어줍니다. 지식을 나누며 한번 더 성장하는 En#만의 선순환 구조입니다. 또한 졸업한 현직자 선배들의 멘토링과 활발한 교류가 이어집니다.',
-        icon: 'diversity_3',
-        iconColor: 'text-white', // Primary/White for contrast
-        gridClass: 'col-span-1 md:col-span-4',
-        contentClass: 'p-8 flex flex-col md:flex-row items-center justify-between gap-6 h-full',
-        images: ['/seminar.jpg', 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80'],
-        details: (
-            <div className="flex flex-wrap items-center justify-end gap-6 opacity-60 grayscale transition-all duration-500 md:w-1/3">
-                <span className="text-lg font-bold font-display text-white">NAVER</span>
-                <span className="text-lg font-bold font-display text-yellow-400">kakao</span>
-                <span className="text-lg font-bold font-display text-green-500">LINE</span>
-                <span className="text-lg font-bold font-display text-blue-400">Coupang</span>
-            </div>
-        )
+        images: ['/seminar/seminar1.jpg', '/seminar/seminar2.jpg', '/seminar/seminar3.webp']
     }
 ];
 
 const Activities: React.FC = () => {
-    const [layout, setLayout] = useState<LayoutType>('inline');
-    const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [viewImage, setViewImage] = useState<string | null>(null);
+    const [activeCategory, setActiveCategory] = useState<string>(activities[0].id);
+    const swipeContainerRef = React.useRef<HTMLDivElement>(null);
+    const isDragging = React.useRef(false);
+    const startX = React.useRef(0);
+    const scrollLeft = React.useRef(0);
 
-    // Initialize selection for sidebar mode
-    React.useEffect(() => {
-        if (layout === 'sidebar' && !selectedId) {
-            setSelectedId(activities[0].id);
+    const handlePrev = () => {
+        if (swipeContainerRef.current) {
+            swipeContainerRef.current.scrollBy({ left: -swipeContainerRef.current.offsetWidth, behavior: 'smooth' });
         }
-    }, [layout, selectedId]);
+    };
+
+    const handleNext = () => {
+        if (swipeContainerRef.current) {
+            swipeContainerRef.current.scrollBy({ left: swipeContainerRef.current.offsetWidth, behavior: 'smooth' });
+        }
+    };
+
+    const scrollToCategory = (index: number) => {
+        if (swipeContainerRef.current) {
+            swipeContainerRef.current.scrollTo({
+                left: index * swipeContainerRef.current.offsetWidth,
+                behavior: 'smooth'
+            });
+            setActiveCategory(activities[index].id);
+        }
+    };
+
+    const handleScroll = () => {
+        if (swipeContainerRef.current) {
+            const index = Math.round(swipeContainerRef.current.scrollLeft / swipeContainerRef.current.offsetWidth);
+            if (activities[index] && activities[index].id !== activeCategory) {
+                setActiveCategory(activities[index].id);
+            }
+        }
+    };
+
+    // Drag to Scroll Handlers
+    const onMouseDown = (e: React.MouseEvent) => {
+        if (!swipeContainerRef.current) return;
+        isDragging.current = true;
+        startX.current = e.pageX - swipeContainerRef.current.offsetLeft;
+        scrollLeft.current = swipeContainerRef.current.scrollLeft;
+        swipeContainerRef.current.style.cursor = 'grabbing';
+        swipeContainerRef.current.style.scrollBehavior = 'auto'; // Disable smooth scroll while dragging
+    };
+
+    const onMouseLeave = () => {
+        isDragging.current = false;
+        if (swipeContainerRef.current) {
+            swipeContainerRef.current.style.cursor = 'grab';
+            swipeContainerRef.current.style.scrollBehavior = 'smooth';
+        }
+    };
+
+    const onMouseUp = () => {
+        isDragging.current = false;
+        if (swipeContainerRef.current) {
+            swipeContainerRef.current.style.cursor = 'grab';
+            swipeContainerRef.current.style.scrollBehavior = 'smooth';
+        }
+    };
+
+    const onMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging.current || !swipeContainerRef.current) return;
+        e.preventDefault();
+        const x = e.pageX - swipeContainerRef.current.offsetLeft;
+        const walk = (x - startX.current) * 2; // Scroll-fast
+        swipeContainerRef.current.scrollLeft = scrollLeft.current - walk;
+    };
 
     return (
-        <section id="activities" className="w-full px-4 py-20 bg-background relative z-10 min-h-screen flex flex-col">
-            <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col">
-                <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div>
-                        <Text variant="h2" className="text-3xl font-bold text-white mb-2">Our Activities</Text>
-                        <Text className="text-muted">En#의 5가지 주요 활동을 소개합니다.</Text>
-                    </div>
+        <section id="activities" className="w-full px-4 py-20 bg-background relative z-10 min-h-screen flex flex-col justify-center">
+            <style jsx global>{`
+                .no-scrollbar::-webkit-scrollbar {
+                    display: none;
+                }
+                .no-scrollbar {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            `}</style>
+            <div className="max-w-7xl mx-auto w-full flex-1 flex flex-col justify-center">
+                <div className="mb-8 flex flex-col items-center text-center">
+                    <Text variant="h2" className="text-3xl font-bold text-white mb-2">Our Activities</Text>
+                    <Text className="text-muted mb-8">En#의 4가지 주요 활동을 소개합니다.</Text>
 
-                    {/* Layout Switcher */}
-                    <div className="bg-zinc-900/50 p-1 rounded-lg border border-zinc-800 flex gap-1 overflow-x-auto max-w-full">
-                        {(['inline', 'overlay', 'morph', 'sidebar', 'panorama'] as const).map((mode) => (
+                    {/* Category Navigation */}
+                    <div className="flex flex-wrap justify-center gap-2 mb-4">
+                        {activities.map((activity, idx) => (
                             <button
-                                key={mode}
-                                onClick={() => { setLayout(mode); if (mode !== 'sidebar') setSelectedId(null); }}
-                                className={`px-4 py-2 rounded-md text-xs font-mono transition-all whitespace-nowrap ${layout === mode
-                                    ? 'bg-primary text-white shadow-lg'
-                                    : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
-                                    }`}
+                                key={activity.id}
+                                onClick={() => scrollToCategory(idx)}
+                                className={cn(
+                                    "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border border-transparent",
+                                    activeCategory === activity.id
+                                        ? "bg-white/10 text-white border-white/10"
+                                        : "text-zinc-500 hover:text-zinc-300 hover:bg-white/5"
+                                )}
                             >
-                                {mode.toUpperCase()}
+                                {activity.title}
                             </button>
                         ))}
                     </div>
                 </div>
 
-                {/* Panorama Layout */}
-                {layout === 'panorama' ? (
-                    <div className="flex gap-4 md:gap-8 overflow-x-auto h-[600px] md:h-[70vh] items-center px-4 md:px-[5vw] snap-x snap-mandatory scrollbar-hide py-10 -mx-4 md:-mx-[calc((100vw-80rem)/2)] w-screen md:w-[100vw] relative left-1/2 -translate-x-1/2">
-                        {activities.map((activity) => {
-                            const isSelected = selectedId === activity.id;
-                            return (
-                                <motion.div
-                                    key={activity.id}
-                                    onClick={() => setSelectedId(isSelected ? null : activity.id)}
-                                    layoutId={`panorama-${activity.id}`}
-                                    className={cn(
-                                        "relative h-full rounded-2xl overflow-hidden snap-center flex-shrink-0 cursor-pointer transition-all duration-500 group border border-white/5",
-                                        isSelected ? "min-w-[85vw] md:min-w-[60vw]" : "min-w-[85vw] md:min-w-[25vw] opacity-80 hover:opacity-100"
-                                    )}
-                                >
-                                    {/* Background Image */}
-                                    <img src={activity.images[0]} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={activity.title} />
-                                    <div className={cn("absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-300", isSelected ? "opacity-90" : "opacity-60 group-hover:opacity-80")} />
+                {/* Revolutionary Swipe Grid Layout */}
+                <div className="relative w-full h-[80vh] rounded-3xl overflow-hidden group/swipe select-none">
+                    {/* Desktop Navigation Arrows */}
+                    <button
+                        onClick={handlePrev}
+                        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 items-center justify-center text-white opacity-50 hover:opacity-100 transition-opacity"
+                    >
+                        <span className="material-symbols-outlined text-6xl drop-shadow-lg">chevron_left</span>
+                    </button>
+                    <button
+                        onClick={handleNext}
+                        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 items-center justify-center text-white opacity-50 hover:opacity-100 transition-opacity"
+                    >
+                        <span className="material-symbols-outlined text-6xl drop-shadow-lg">chevron_right</span>
+                    </button>
 
-                                    {/* Content */}
-                                    <div className="relative h-full flex flex-col justify-end p-6 md:p-10">
-                                        <div className={cn("transform transition-all duration-500", isSelected ? "translate-y-0" : "translate-y-0")}>
-                                            <div className={cn("inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 mb-4", activity.iconColor)}>
-                                                <span className="material-symbols-outlined text-sm">{activity.icon}</span>
-                                                <span className="text-xs font-bold uppercase tracking-wider text-white">0{activities.indexOf(activity) + 1}</span>
-                                            </div>
-
-                                            <Text variant="h2" className={cn("font-bold text-white mb-2 leading-tight transition-all duration-300", isSelected ? "text-4xl md:text-5xl" : "text-3xl")}>
-                                                {activity.title}
-                                            </Text>
-
-                                            <div className={cn("overflow-hidden transition-all duration-500", isSelected ? "max-h-[500px] opacity-100 mt-4" : "max-h-0 opacity-0")}>
-                                                <Text className="text-lg text-zinc-300 mb-8 max-w-2xl">
-                                                    {activity.description}
-                                                </Text>
-
-                                                {/* Horizontal Gallery Strip in Panorama */}
-                                                <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-                                                    {activity.images.slice(1).map((img, idx) => (
-                                                        <div key={idx} className="h-32 aspect-video rounded-lg overflow-hidden flex-shrink-0 border border-white/10">
-                                                            <img src={img} className="w-full h-full object-cover" alt="" />
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            {!isSelected && (
-                                                <Text variant="small" className="text-zinc-400 mt-2 group-hover:text-white transition-colors">
-                                                    Tap to explore
-                                                </Text>
-                                            )}
-                                        </div>
+                    {/* Horizontal Swipe Container */}
+                    <div
+                        ref={swipeContainerRef}
+                        className="flex w-full h-full overflow-x-auto snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing"
+                        onMouseDown={onMouseDown}
+                        onMouseLeave={onMouseLeave}
+                        onMouseUp={onMouseUp}
+                        onMouseMove={onMouseMove}
+                        onScroll={handleScroll}
+                    >
+                        {activities.map((activity, idx) => (
+                            <div key={activity.id} className="min-w-full h-full snap-center flex flex-col p-6 md:p-10 overflow-hidden">
+                                {/* Header Info */}
+                                <div className="mb-8 flex flex-col items-center text-center flex-shrink-0">
+                                    <div className={cn("w-12 h-12 rounded-full flex items-center justify-center mb-4 bg-white/10", activity.iconColor)}>
+                                        <span className="material-symbols-outlined">{activity.icon}</span>
                                     </div>
-                                </motion.div>
-                            );
-                        })}
-                    </div>
-                ) : layout === 'sidebar' ? (
-                    <div className="flex flex-col md:flex-row gap-6 h-[800px] md:h-[600px]">
-                        {/* Sidebar Navigation */}
-                        <div className="w-full md:w-72 flex-shrink-0 flex md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0 px-2 md:px-0">
-                            {activities.map((activity) => {
-                                const isSelected = selectedId === activity.id;
-                                return (
-                                    <button
-                                        key={activity.id}
-                                        onClick={() => setSelectedId(activity.id)}
-                                        className="relative group text-left min-w-[200px] md:min-w-0 pt-8 transition-transform hover:-translate-y-1 duration-300"
-                                    >
-                                        {/* Folder Tab */}
-                                        <div className={cn(
-                                            "absolute top-0 left-0 w-1/2 h-8 rounded-t-xl transition-all duration-300 border-t border-l border-zinc-700/50",
-                                            isSelected ? "bg-zinc-800 border-zinc-600 z-10" : "bg-zinc-900/50 border-zinc-800 z-0 group-hover:bg-zinc-800/50"
-                                        )}></div>
-
-                                        {/* Folder Body */}
-                                        <div className={cn(
-                                            "relative p-5 rounded-b-xl rounded-tr-xl border transition-all duration-300 flex items-center gap-4 z-10",
-                                            isSelected
-                                                ? "bg-zinc-800 border-zinc-600 shadow-xl scale-[1.02]"
-                                                : "bg-zinc-900/50 border-zinc-800 group-hover:bg-zinc-800/50 group-hover:border-zinc-700"
-                                        )}>
-                                            <div className={cn(
-                                                "w-10 h-10 rounded-lg flex items-center justify-center transition-colors",
-                                                isSelected ? "bg-black/40" : "bg-black/20"
-                                            )}>
-                                                <span className={cn("material-symbols-outlined",
-                                                    isSelected ? activity.iconColor : "text-zinc-600"
-                                                )}>
-                                                    {activity.icon}
-                                                </span>
-                                            </div>
-                                            <div className="flex flex-col">
-                                                <span className={cn("font-bold transition-colors", isSelected ? "text-white" : "text-zinc-500")}>
-                                                    {activity.title}
-                                                </span>
-                                                <span className="text-[10px] text-zinc-500 font-mono hidden md:block uppercase tracking-wider">
-                                                    Folder 0{activities.indexOf(activity) + 1}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </button>
-                                );
-                            })}
-                        </div>
-
-                        {/* Content Area */}
-                        <div className="flex-1 bg-zinc-900/50 border border-zinc-800 rounded-2xl overflow-hidden flex flex-col relative group">
-                            <AnimatePresence mode="wait">
-                                {activities.map((activity) => {
-                                    if (activity.id !== selectedId) return null;
-                                    return (
-                                        <motion.div
-                                            key={activity.id}
-                                            initial={{ opacity: 0, x: 20 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: -20 }}
-                                            transition={{ duration: 0.3 }}
-                                            className="absolute inset-0 flex flex-col"
-                                        >
-                                            {/* Hero Image */}
-                                            <div className="h-48 md:h-64 relative flex-shrink-0">
-                                                <img src={activity.images[0]} className="w-full h-full object-cover" alt={activity.title} />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/50 to-transparent" />
-                                                <div className="absolute bottom-6 left-8">
-                                                    <div className={cn("inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 mb-2", activity.iconColor)}>
-                                                        <span className="material-symbols-outlined text-sm">{activity.icon}</span>
-                                                        <span className="text-xs font-bold uppercase tracking-wider text-white">Folder Open</span>
-                                                    </div>
-                                                    <Text variant="h2" className="text-3xl md:text-4xl font-bold text-white">{activity.title}</Text>
-                                                </div>
-                                            </div>
-
-                                            {/* Scrollable Content */}
-                                            <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
-                                                <Text className="text-zinc-400 text-lg leading-relaxed mb-8 max-w-3xl">
-                                                    {activity.description}
-                                                </Text>
-
-                                                {activity.details && (
-                                                    <div className="mb-8">
-                                                        {activity.details}
-                                                    </div>
-                                                )}
-
-                                                <Text variant="h4" className="text-white mb-4 font-bold flex items-center gap-2 px-4 md:px-0">
-                                                    <span className="material-symbols-outlined">collections</span>
-                                                    Gallery
-                                                </Text>
-
-                                                {/* Reels-style Gallery for Mobile */}
-                                                <div className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible gap-0 md:gap-4 pb-0 md:pb-8 snap-x snap-mandatory no-scrollbar -mx-8 md:mx-0 w-[calc(100%+4rem)] md:w-full">
-                                                    {activity.images.map((img, idx) => (
-                                                        <div key={idx} className="min-w-full md:min-w-0 snap-center flex-shrink-0 aspect-[4/5] md:aspect-video relative overflow-hidden bg-zinc-900 border-x border-zinc-900 md:border md:rounded-xl md:border-zinc-700/50 md:hover:border-zinc-500 transition-colors group/img">
-                                                            <img src={img} className="w-full h-full object-cover" alt={`Gallery ${idx}`} />
-
-                                                            {/* Mobile Index Indicator */}
-                                                            <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-white md:hidden">
-                                                                {idx + 1} / {activity.images.length}
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    );
-                                })}
-                            </AnimatePresence>
-                        </div>
-                    </div>
-                ) : (
-                    // Grid Layouts (Inline, Overlay, Morph)
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[minmax(180px,auto)] relative">
-                        {activities.map((activity) => (
-                            <React.Fragment key={activity.id}>
-                                <motion.div
-                                    layoutId={layout === 'morph' ? `card-${activity.id}` : undefined}
-                                    className={cn(activity.gridClass, "relative group")}
-                                    onClick={() => setSelectedId(selectedId === activity.id ? null : activity.id)}
-                                >
-                                    <Card
-                                        className={cn("h-full cursor-pointer transition-all duration-300",
-                                            selectedId === activity.id && layout === 'inline' ? 'ring-2 ring-primary bg-zinc-900' : ''
-                                        )}
-                                        contentClassName={activity.contentClass}
-                                        hover={layout !== 'morph' || selectedId !== activity.id} // Disable hover effect when morph active
-                                    >
-                                        {/* Icon & Title */}
-                                        <div className={cn("w-full", activity.id === 'mentoring' ? 'md:w-2/3' : '')}>
-                                            <div className="flex items-center gap-3 mb-4">
-                                                <div className={cn("w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center", activity.iconColor)}>
-                                                    <span className="material-symbols-outlined">{activity.icon}</span>
-                                                </div>
-                                                {activity.id !== 'coding' && activity.id !== 'contest' && ( // Inline title for smaller cards
-                                                    <Text variant="h3" className="text-xl font-bold text-white">{activity.title}</Text>
-                                                )}
-                                            </div>
-
-                                            {(activity.id === 'study' || activity.id === 'contest' || activity.id === 'mentoring') && (
-                                                <Text variant="h3" className={cn("text-2xl font-bold text-white mb-2", activity.id === 'mentoring' ? 'hidden' : 'block')}>{activity.title}</Text>
-                                            )}
-
-                                            <Text variant="small" className="text-zinc-400 leading-relaxed break-keep">
-                                                {activity.description}
-                                            </Text>
-                                        </div>
-
-                                        {/* Custom Details */}
-                                        {activity.details}
-                                    </Card>
-                                </motion.div>
-
-                                {/* Inline Layout Expansion */}
-                                {layout === 'inline' && selectedId === activity.id && (
-                                    <motion.div
-                                        initial={{ opacity: 0, height: 0 }}
-                                        animate={{ opacity: 1, height: 'auto' }}
-                                        exit={{ opacity: 0, height: 0 }}
-                                        className="col-span-1 md:col-span-4 bg-zinc-900/50 border border-zinc-800 rounded-xl overflow-hidden mb-4"
-                                    >
-                                        <div className="p-6">
-                                            <Text variant="h4" className="text-white mb-4">Gallery</Text>
-                                            <div className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible gap-0 md:gap-4 pb-0 md:pb-8 snap-x snap-mandatory no-scrollbar -mx-6 md:mx-0 w-[calc(100%+3rem)] md:w-full">
-                                                {activity.images.map((img, idx) => (
-                                                    <div key={idx} className="min-w-full md:min-w-0 snap-center flex-shrink-0 aspect-[4/5] md:aspect-video relative overflow-hidden bg-zinc-900 border-x border-zinc-900 md:border md:rounded-lg md:border-zinc-700/50 relative">
-                                                        <img src={img} alt="" className="object-cover w-full h-full" />
-                                                        <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-white md:hidden">
-                                                            {idx + 1} / {activity.images.length}
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </React.Fragment>
-                        ))}
-                    </div>
-                )}
-
-                {/* Overlay Layout */}
-                <AnimatePresence>
-                    {layout === 'overlay' && selectedId && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
-                            onClick={() => setSelectedId(null)}
-                        >
-                            <motion.div
-                                initial={{ scale: 0.9, opacity: 0 }}
-                                animate={{ scale: 1, opacity: 1 }}
-                                exit={{ scale: 0.9, opacity: 0 }}
-                                className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                                <div className="flex justify-between items-center mb-6">
-                                    <Text variant="h2" className="text-2xl font-bold text-white">
-                                        {activities.find(a => a.id === selectedId)?.title}
-                                    </Text>
-                                    <button onClick={() => setSelectedId(null)} className="p-2 hover:bg-white/10 rounded-full">
-                                        <span className="material-symbols-outlined text-white">close</span>
-                                    </button>
+                                    <Text variant="h2" className="text-3xl font-bold text-white mb-2">{activity.title}</Text>
+                                    <Text className="text-zinc-400 max-w-md text-sm md:text-base">{activity.description}</Text>
+                                    <div className="mt-4 flex gap-2 justify-center">
+                                        {/* Simple Dots for Page Indication */}
+                                        {activities.map((_, dotIdx) => (
+                                            <div key={dotIdx} className={cn("w-1.5 h-1.5 rounded-full transition-colors", dotIdx === idx ? "bg-white" : "bg-white/20")} />
+                                        ))}
+                                    </div>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {activities.find(a => a.id === selectedId)?.images.map((img, idx) => (
-                                        <div key={idx} className="aspect-video rounded-xl overflow-hidden bg-zinc-800">
-                                            <img src={img} alt="" className="object-cover w-full h-full" />
-                                        </div>
+
+                                {/* Photo Grid */}
+                                <div className="grid grid-cols-3 gap-1 md:gap-4 w-full max-w-2xl mx-auto flex-1 content-start pb-20">
+                                    {/* Repeat images to fill grid if needed */}
+                                    {activity.images.slice(0, 9).map((img, imgIdx) => (
+                                        <motion.div
+                                            key={`${activity.id}-${imgIdx}`}
+                                            layoutId={`img-${activity.id}-${imgIdx}`}
+                                            className="aspect-square relative cursor-pointer overflow-hidden bg-zinc-800 rounded-sm"
+                                            onClick={() => setViewImage(`${activity.id}-${imgIdx}`)}
+                                            whileHover={{ scale: 0.98, opacity: 0.8 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            <img src={img} className="w-full h-full object-cover pointer-events-none" alt="" />
+                                        </motion.div>
                                     ))}
                                 </div>
-                                <Text className="mt-6 text-zinc-400">
-                                    {activities.find(a => a.id === selectedId)?.description}
-                                </Text>
-                            </motion.div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                            </div>
+                        ))}
+                    </div>
 
-                {/* Morph Layout */}
-                <AnimatePresence>
-                    {layout === 'morph' && selectedId && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    {/* Fullscreen View Image Overlay */}
+                    <AnimatePresence>
+                        {viewImage && (
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-                                onClick={() => setSelectedId(null)}
-                            />
-                            <motion.div
-                                layoutId={`card-${selectedId}`}
-                                className="relative bg-zinc-900 border border-zinc-700 rounded-3xl w-full max-w-5xl h-[80vh] overflow-hidden shadow-2xl z-10 flex flex-col"
+                                onClick={() => setViewImage(null)}
+                                className="absolute inset-0 z-50 bg-black flex flex-col cursor-pointer"
                             >
-                                {/* Expanded Content */}
-                                {activities.map(a => {
-                                    if (a.id !== selectedId) return null;
-                                    return (
-                                        <div key={a.id} className="h-full flex flex-col">
-                                            {/* Hero Image Area */}
-                                            <div className="h-[40%] relative">
-                                                <img src={a.images[0]} className="w-full h-full object-cover" />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent" />
-                                                <button
-                                                    onClick={(e) => { e.stopPropagation(); setSelectedId(null); }}
-                                                    className="absolute top-4 right-4 w-10 h-10 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-colors"
-                                                >
-                                                    <span className="material-symbols-outlined">close</span>
-                                                </button>
-                                                <div className="absolute bottom-6 left-6 md:left-10">
-                                                    <div className={cn("inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 mb-2", a.iconColor)}>
-                                                        <span className="material-symbols-outlined text-sm">{a.icon}</span>
-                                                        <span className="text-xs font-bold uppercase tracking-wider text-white">Activity</span>
-                                                    </div>
-                                                    <motion.h2 className="text-4xl md:text-5xl font-bold text-white">{a.title}</motion.h2>
-                                                </div>
-                                            </div>
+                                {/* Expanded Image */}
+                                <div className="w-full h-full flex items-center justify-center p-0 md:p-10">
+                                    {(() => {
+                                        // Find the image source based on ID
+                                        // viewImage format: "activityId-imgIndex"
+                                        const [actId, imgIndexStr] = viewImage.split('-');
+                                        const act = activities.find(a => a.id === actId);
+                                        // Map index back to the repeated array logic: slice(0,9)
+                                        // Actual image is just straight mapping though
+                                        if (!act) return null;
+                                        const realImgSrc = act.images[parseInt(imgIndexStr)];
 
-                                            {/* Scrollable Body */}
-                                            <div className="flex-1 overflow-y-auto p-6 md:p-10 bg-zinc-950">
-                                                <Text className="text-lg text-zinc-300 mb-8 leading-relaxed max-w-3xl">
-                                                    {a.description}
-                                                </Text>
-
-                                                <Text variant="h4" className="text-white mb-4">Gallery</Text>
-                                                <div className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible gap-0 md:gap-4 pb-0 md:pb-0 snap-x snap-mandatory no-scrollbar -mx-6 md:mx-0 w-[calc(100%+3rem)] md:w-full">
-                                                    {a.images.map((img, idx) => (
-                                                        <div key={idx} className="min-w-full md:min-w-0 snap-center flex-shrink-0 aspect-[4/5] md:aspect-video relative overflow-hidden bg-zinc-900 border-x border-zinc-900 md:border md:rounded-xl md:border-zinc-800 md:hover:border-zinc-600 transition-colors">
-                                                            <img src={img} className="w-full h-full object-cover" />
-                                                            <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono text-white md:hidden">
-                                                                {idx + 1} / {a.images.length}
-                                                            </div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
+                                        return (
+                                            <motion.img
+                                                layoutId={`img-${viewImage}`}
+                                                src={realImgSrc}
+                                                className="w-full h-full object-contain"
+                                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                            />
+                                        );
+                                    })()}
+                                </div>
                             </motion.div>
-                        </div>
-                    )}
-                </AnimatePresence>
-
+                        )}
+                    </AnimatePresence>
+                </div>
             </div>
         </section>
     );

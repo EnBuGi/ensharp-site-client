@@ -56,8 +56,8 @@ const TypingCommand = ({ text, onComplete, delay = 0, instant = false }: { text:
     return (
         <Text variant="mono" as="span">
             {displayedText}
-            {/* Show cursor if typing is not done OR if it's the last active line, but not if instant */}
-            {(showCursor && !instant) && <span className="text-zinc-500 inline-block w-2.5 h-4 align-middle ml-1 bg-zinc-500"></span>}
+            {/* Show cursor only if typing is not done and not instant */}
+            {(showCursor && !instant && displayedText !== text) && <span className="text-zinc-500 inline-block w-2.5 h-4 align-middle ml-1 bg-zinc-500"></span>}
         </Text>
     );
 };
@@ -168,7 +168,8 @@ const RecruitmentInfo: React.FC = () => {
                                     <p>{`{`}</p>
                                     <p className="pl-4"><span className="text-primary">"기수"</span>: <span className="text-yellow-300">"26th"</span>,</p>
                                     <p className="pl-4"><span className="text-primary">"모집 대상"</span>: <span className="text-green-300">"세종대학교 학부생 (전공 무관)"</span>,</p>
-                                    <p className="pl-4"><span className="text-primary">"모집 기간"</span>: <span className="text-green-300">"2025.03 (모집 예정)"</span>,</p>
+                                    <p className="pl-4"><span className="text-primary">"모집 기간"</span>: <span className="text-green-300">"2026.02.11 ~ 2026.03.10"</span>,</p>
+                                    <p className="pl-4"><span className="text-primary">"면접 기간"</span>: <span className="text-green-300">"2026.03.13 ~ 2026.03.15"</span>,</p>
                                     <p className="pl-4"><span className="text-primary">"활동비"</span>: <span className="text-blue-300">0</span>,</p>
                                     <p className="pl-4"><span className="text-primary">"동아리방"</span>: <span className="text-zinc-400">"학생회관 530호"</span></p>
                                     <p>{`}`}</p>
@@ -194,20 +195,11 @@ const RecruitmentInfo: React.FC = () => {
                                     <span className="text-green-500">✔</span> Application form ready.<br />
                                     <span className="text-zinc-500">Initiating external link...</span>
                                 </p>
-                                <a href="https://google.com" target="_blank" rel="noopener noreferrer">
+                                <a href="https://forms.gle/RmzQknfjkrggFzGo9" target="_blank" rel="noopener noreferrer">
                                     <Button size="lg" className="hover:scale-105 transition-transform" rightIcon={<span className="material-symbols-outlined text-sm">arrow_forward</span>}>
-                                        25기 지원서 작성하기
+                                        26기 지원서 작성하기
                                     </Button>
                                 </a>
-                            </div>
-                        )}
-
-                        {/* Always show a blinking cursor at the bottom if sequence is done to feel alive */}
-                        {step === 4 && (
-                            <div className="mt-4">
-                                <TerminalLine user="applicant">
-                                    <span className="animate-pulse bg-zinc-500 w-2.5 h-4 inline-block align-middle"></span>
-                                </TerminalLine>
                             </div>
                         )}
 

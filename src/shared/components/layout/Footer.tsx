@@ -14,8 +14,8 @@ export const Footer: React.FC = () => {
 
                 <div className="flex gap-6 text-sm font-mono text-zinc-500">
                     <a href="https://www.instagram.com/ensharp_sejong/" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors">Instagram</a>
-                    <a href="mailto:99doldol@naver.com" className="hover:text-brand transition-colors">Email</a>
-                    <a href="http://pf.kakao.com/_bGcaG/chat" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors">KakaoTalk</a>
+                    <a href="mailto:99doldol@naver.com" className="hover:text-brand transition-colors">99doldol@naver.com</a>
+                    <a href="http://pf.kakao.com/_bGcaG/chat" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors">KakaoTalk: En#</a>
                 </div>
             </div>
         </footer>

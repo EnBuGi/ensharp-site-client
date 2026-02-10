@@ -130,7 +130,7 @@ const Journey: React.FC = () => {
                         <span className="text-zinc-600">to Mentor.</span>
                     </Text>
                     <Text variant="body" className="text-zinc-400 mt-4 text-sm md:text-base max-w-sm">
-                        스터디부터 멘토링까지, En#에서의 1년.
+                        스터디부터 멘토링까지, En#에서의 18개월.
                     </Text>
                 </div>
 

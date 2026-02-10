@@ -4,6 +4,7 @@ import { Footer } from '@/shared/components/layout/Footer';
 import Hero from '@/features/landing/components/Hero';
 import Activities from '@/features/landing/components/Activities';
 import Journey from '@/features/landing/components/Journey';
+import FAQ from '@/features/landing/components/FAQ';
 import RecruitmentInfo from '@/features/landing/components/RecruitmentInfo';
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
         <Hero />
         <Activities />
         <Journey />
+        <FAQ />
         <RecruitmentInfo />
       </main>
 
