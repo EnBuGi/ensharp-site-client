@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { ToastProvider } from "@/shared/components/ui/Toast";
 import "./globals.css";
@@ -45,6 +46,7 @@ export default function RootLayout({
         <ToastProvider>
           {children}
         </ToastProvider>
+        <Analytics />
       </body>
     </html>
   );
