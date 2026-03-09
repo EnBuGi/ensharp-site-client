@@ -9,7 +9,7 @@ const Hero: React.FC = () => {
     const [isClosed, setIsClosed] = useState(false);
 
     useEffect(() => {
-        const deadline = new Date('2026-03-12T00:00:00');
+        const deadline = new Date('2026-03-11T00:00:00');
 
         const updateTimer = () => {
             const now = new Date().getTime();
